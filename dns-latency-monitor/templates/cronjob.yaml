@@ -7,6 +7,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   schedule: {{ .Values.cron.schedule | quote }}
+  concurrencyPolicy: {{ .Values.cron.concurrencyPolicy }}
   jobTemplate:
     spec:
       template:
