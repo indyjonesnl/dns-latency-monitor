@@ -1,0 +1,57 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  schedule: {{ .Values.cron.schedule | quote }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          {{- with .Values.podAnnotations }}
+          annotations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          labels:
+          {{- include "chart.labels" . | nindent 10 }}
+        spec:
+          containers:
+            - name: php
+              envFrom:
+                - secretRef:
+                    name: {{ .Release.Name }}
+              image: '{{ .Values.image.repository -}}:{{- .Values.image.tag }}'
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              command:
+                - /bin/sh
+                - -c
+                - php bin/console latency-checks -vvv
+              resources:
+                limits:
+                  cpu: {{ .Values.resources.limits.cpu }}
+                  memory: {{ .Values.resources.limits.memory }}
+                requests:
+                  cpu: {{ .Values.resources.requests.cpu }}
+                  memory: {{ .Values.resources.requests.memory }}
+          restartPolicy: {{ .Values.cron.restartPolicy }}
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          os:
+            name: linux
+          {{- with .Values.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          {{- with .Values.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}

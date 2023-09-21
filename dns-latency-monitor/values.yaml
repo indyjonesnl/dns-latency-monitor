@@ -1,0 +1,53 @@
+# Default values for dns-latency-monitor.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+cron:
+  schedule: "* * * * *"
+  restartPolicy: OnFailure
+
+secret:
+  app_env: 'prod'
+  app_secret: 'f81f0f85f2bc05fccfae01f34f7cdf0d'
+  mongodb_url: ''
+  mongodb_db: 'dns-latency-monitor'
+
+image:
+  repository: ghcr.io/indyjonesnl/dns-latency-monitor
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+   limits:
+     cpu: 25m
+     memory: 32Mi
+   requests:
+     cpu: 5m
+     memory: 16Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
