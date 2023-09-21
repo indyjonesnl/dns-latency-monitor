@@ -1,0 +1,14 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: dns-latency-monitor
+  namespace: kube-system
+spec:
+  chart: dns-latency-monitor
+  createNamespace: true
+  repo: https://indyjonesnl.github.io/dns-latency-monitor
+  targetNamespace: monitor
+  valuesContent: |-
+    secret:
+      mongodb_url: 'mongodb+srv://username:password@clustername.servername.mongodb.net'
+  version: v0.2.0

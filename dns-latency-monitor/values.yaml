@@ -5,17 +5,18 @@
 cron:
   schedule: "* * * * *"
   restartPolicy: OnFailure
+  activeDeadlineSeconds: 30
 
 secret:
   app_env: 'prod'
   app_secret: 'f81f0f85f2bc05fccfae01f34f7cdf0d'
-  mongodb_url: ''
   mongodb_db: 'dns-latency-monitor'
+  mongodb_url: ''
 
 image:
-  repository: ghcr.io/indyjonesnl/dns-latency-monitor
   pullPolicy: IfNotPresent
-  tag: "latest"
+  repository: ghcr.io/indyjonesnl/dns-latency-monitor
+  tag: "v0.2.0"
 
 imagePullSecrets: []
 nameOverride: ""
