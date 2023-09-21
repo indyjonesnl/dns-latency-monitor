@@ -3,6 +3,17 @@ entries:
   dns-latency-monitor:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-09-22T00:17:24.279172+02:00"
+    description: A Helm chart for Kubernetes
+    digest: e3c5e896df0272a45530fbb2625bf4e1f698bbd1d676600b5dacbb42ca79e430
+    kubeVersion: '>= 1.19.0-0'
+    name: dns-latency-monitor
+    type: application
+    urls:
+      - https://indyjonesnl.github.io/dns-latency-monitor/dns-latency-monitor-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-09-21T23:57:15.575897+02:00"
     description: A Helm chart for Kubernetes
     digest: d7ab4c18494bd80abd8994fb701668919c10fef91f541a949773e3527f0884e8
